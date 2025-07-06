@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QR Code Generator</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/navbar.css" />
+  <link rel="stylesheet" href="../css/landing.css" />
+  <link rel="icon" type="image/x-icon" href="../img/favicon.ico" />
+</head>
+<body>
+  <div id="header"></div>
+
+  <main>
+    <section class="content">
+      <h1>QR Code Generator</h1>
+      <p>Use the form below to generate a custom QR code based on your selected content type.</p>
+
+      <form id="qrForm">
+        <label for="qrType">Select QR Code Type:</label>
+        <select id="qrType" name="qrType">
+          <option value="url">URL</option>
+          <option value="text">Text</option>
+          <option value="email">Email</option>
+          <option value="phone">Phone Number</option>
+          <option value="sms">SMS</option>
+          <option value="wifi">Wi-Fi</option>
+          <option value="vcard">Contact (vCard)</option>
+          <option value="event">Calendar Event</option>
+          <option value="geo">Location</option>
+        </select>
+
+        <div id="qrInputs">
+          <!-- Dynamic inputs will be injected here -->
+        </div>
+
+        <button type="submit">Generate QR Code</button>
+      </form>
+
+      <div id="qrPreview" style="margin-top: 2em;">
+        <h2>Preview</h2>
+        <canvas id="qrCanvas"></canvas>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="../js/include-loader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
+  <script src="../js/qr-generator.js"></script>
+</body>
+</html>
