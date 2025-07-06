@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const typeSelect = document.getElementById("qrType");
   const inputContainer = document.getElementById("qrInputs");
   const canvas = document.getElementById("qrCanvas");
+  const previewImage = document.getElementById("logoPreview");
 
   function clearInputs() {
     inputContainer.innerHTML = "";
@@ -118,24 +119,16 @@ document.addEventListener("DOMContentLoaded", function () {
       level: 'H'
     });
 
-    // Optional logo image overlay
-    const fileInput = document.getElementById("qrLogo");
-    const ctx = canvas.getContext("2d");
-
-    if (fileInput.files.length > 0) {
-      const imgFile = fileInput.files[0];
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        const img = new Image();
-        img.onload = function () {
-          const size = canvas.width * 0.25; // 25% size
-          const x = (canvas.width - size) / 2;
-          const y = (canvas.height - size) / 2;
-          ctx.drawImage(img, x, y, size, size);
-        };
-        img.src = e.target.result;
+    if (previewImage.dataset.ready === "true") {
+      const img = new Image();
+      img.onload = function () {
+        const ctx = canvas.getContext("2d");
+        const size = canvas.width * 0.25;
+        const x = (canvas.width - size) / 2;
+        const y = (canvas.height - size) / 2;
+        ctx.drawImage(img, x, y, size, size);
       };
-      reader.readAsDataURL(imgFile);
+      img.src = previewImage.dataset.src;
     }
   });
 });
