@@ -23,13 +23,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const type = typeSelect.value;
     const value = document.getElementById(type).value;
+    const errorLevel = document.getElementById("qrErrorLevel").value;
     const qrData = value;
 
     const qr = new QRious({
       element: canvas,
       value: qrData,
       size: 300,
-      level: 'H'
+      level: errorLevel
     });
 
     const previewImage = document.getElementById("logoPreview");

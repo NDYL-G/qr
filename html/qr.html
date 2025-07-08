@@ -29,6 +29,14 @@
       </div>
       <img id="logoPreview" src="../img/logo.png" alt="Logo Preview"/>
 
+      <label for="qrErrorLevel">Error Correction Level:</label>
+      <select id="qrErrorLevel" name="qrErrorLevel">
+        <option value="L">L – Low (7%)</option>
+        <option value="M">M – Medium (15%)</option>
+        <option value="Q">Q – Quartile (25%)</option>
+        <option value="H" selected>H – High (30%)</option>
+      </select>
+
       <button type="submit" style="margin-top: 1em;">Generate QR Code</button>
     </form>
 
