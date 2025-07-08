@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   qrType.addEventListener("change", updateFieldVisibility);
-  updateFieldVisibility(); // initial run
+  updateFieldVisibility();
 
   const form = document.getElementById("qrForm");
   const qrContainer = document.getElementById("qrCanvas");
@@ -105,8 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
+  function generateQRCode() {
     qrContainer.innerHTML = "";
 
     const type = qrType.value;
@@ -154,7 +153,18 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     qrCode.append(qrContainer);
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    generateQRCode();
   });
+
+  // Pre-fill URL and generate on load
+  document.getElementById("urlInput").value = window.location.href;
+  qrType.value = "url";
+  updateFieldVisibility();
+  generateQRCode();
 
   if (logoPreview.complete) {
     logoPreview.onload();
