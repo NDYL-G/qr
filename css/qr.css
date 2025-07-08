@@ -1,15 +1,17 @@
 
-#qrDropZone {
-  border: 2px dashed #ccc;
-  border-radius: 8px;
-  padding: 20px;
-  text-align: center;
+form label {
+  display: block;
   margin-top: 1em;
-  cursor: pointer;
+  font-weight: bold;
 }
-#qrDropZone.dragging {
-  background-color: #eef;
-  border-color: #66f;
+form input, form select {
+  width: 100%;
+  padding: 0.4em;
+  margin-top: 0.3em;
+  box-sizing: border-box;
+}
+#qrCanvas {
+  margin-top: 2em;
 }
 #logoPreview {
   margin-top: 1em;
@@ -17,25 +19,4 @@
   display: block;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-}
-canvas {
-  margin-top: 1.5em;
-  display: block;
-}
-form input[type="text"],
-form select,
-form input[type="range"] {
-  width: 100%;
-  padding: 0.5em;
-  margin-top: 0.25em;
-  box-sizing: border-box;
-}
-form label {
-  display: block;
-  margin-top: 0.5em;
-  font-weight: bold;
-}
-#logoSizeValue {
-  margin-left: 0.5em;
-  font-weight: normal;
 }

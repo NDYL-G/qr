@@ -3,51 +3,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <title>Styled QR Code Generator</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Generate QR Code</title>
-  <link rel="stylesheet" href="../css/qr.css"/>
+  <link rel="stylesheet" href="../css/qr.css" />
 </head>
 <body>
-  <main class="content">
-    <h1>Custom QR Code Generator</h1>
+  <main>
+    <h1>Styled QR Code Generator</h1>
 
     <form id="qrForm">
-      <label for="qrType">Select QR Code Type:</label>
-      <select id="qrType" name="qrType">
-        <option value="url">Website URL</option>
-        <option value="text">Text</option>
-        <option value="email">Email</option>
+      <label for="qrData">QR Code Content:</label>
+      <input type="text" id="qrData" placeholder="Enter URL, text, etc." required>
+
+      <label for="dotStyle">Dot Style:</label>
+      <select id="dotStyle">
+        <option value="square">Square</option>
+        <option value="dots" selected>Dots</option>
+        <option value="rounded">Rounded</option>
       </select>
 
-      <div id="qrInputs" style="margin-top: 1em;"></div>
+      <label for="cornerStyle">Corner Style:</label>
+      <select id="cornerStyle">
+        <option value="square">Square</option>
+        <option value="dot">Dot</option>
+        <option value="extra-rounded">Extra Rounded</option>
+      </select>
+
+      <label for="mainColor">Main Colour:</label>
+      <input type="color" id="mainColor" value="#000000" />
+
+      <label for="gradientColor">Gradient End Colour:</label>
+      <input type="color" id="gradientColor" value="#3333ff" />
 
       <label for="qrLogo">Upload Logo (optional):</label>
-      <input type="file" id="qrLogo" accept="image/*" style="display:none" />
-      <div id="qrDropZone">Click or drag an image here to add a logo</div>
-      <div style="margin-top: 0.5em;">
-        <label><input type="checkbox" id="useDefaultLogo" checked> Use default logo (logo.png)</label>
-      </div>
+      <input type="file" id="qrLogo" accept="image/*" />
       <img id="logoPreview" src="../img/logo.png" alt="Logo Preview"/>
-
-      <label for="qrErrorLevel">Error Correction Level:</label>
-      <select id="qrErrorLevel" name="qrErrorLevel">
-        <option value="L">L – Low (7%)</option>
-        <option value="M">M – Medium (15%)</option>
-        <option value="Q">Q – Quartile (25%)</option>
-        <option value="H" selected>H – High (30%)</option>
-      </select>
-
-      <label for="logoSize">Logo Size (% of QR): <span id="logoSizeValue">25%</span></label>
-      <input type="range" id="logoSize" min="10" max="30" step="5" value="25">
 
       <button type="submit" style="margin-top: 1em;">Generate QR Code</button>
     </form>
 
-    <canvas id="qrCanvas" width="300" height="300"></canvas>
+    <div id="qrCanvas"></div>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
-  <script src="../js/drag-drop.js"></script>
-  <script src="../js/qr-generator.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+  <script src="../js/qr-styling.js"></script>
 </body>
 </html>
