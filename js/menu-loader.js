@@ -11,6 +11,7 @@
   const prefix = window.location.pathname.includes('/html/') ? '' : 'html/';
 
   const pages = [
+    { title: '🎉 Quick Response', <a href="url">https://qr.ndyl.uk/html/qr.html</a>},
     { title: '🎉 Celebrations', category: 'celebrations' },
     { title: '🐾 Animals', category: 'animals' },
     { title: '🎬 Movies', category: 'movies' },
