@@ -5,12 +5,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const canvas = document.getElementById("qrCanvas");
   const previewImage = document.getElementById("logoPreview");
 
-  // Clears all dynamic input fields
   function clearInputs() {
     inputContainer.innerHTML = "";
   }
 
-  // Creates and returns a labelled text input
   function createInput(name, label, placeholder = "") {
     const wrapper = document.createElement("div");
     wrapper.style.marginBottom = "0.5em";
@@ -30,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
     return wrapper;
   }
 
-  // Generates inputs based on the selected QR code type
   function updateInputs(type) {
     clearInputs();
     switch (type) {
@@ -74,19 +71,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Listen for dropdown changes
-  typeSelect.addEventListener("change", function () {
-    updateInputs(typeSelect.value);
-  });
-
-  // Initialise with default selection
+  typeSelect.addEventListener("change", () => updateInputs(typeSelect.value));
   updateInputs(typeSelect.value);
 
-  // Handle form submission to generate QR
   form.addEventListener("submit", function (e) {
     e.preventDefault();
-    let qrData = "";
+
     const type = typeSelect.value;
+    let qrData = "";
 
     switch (type) {
       case "url":
@@ -109,41 +101,4 @@ document.addEventListener("DOMContentLoaded", function () {
       case "wifi":
         const ssid = document.getElementById("ssid").value;
         const password = document.getElementById("password").value;
-        const encryption = document.getElementById("encryption").value || "WPA";
-        qrData = `WIFI:T:${encryption};S:${ssid};P:${password};;`;
-        break;
-      case "vcard":
-        qrData = `BEGIN:VCARD\\nVERSION:3.0\\nFN:${document.getElementById("name").value}\\nORG:${document.getElementById("org").value}\\nTEL:${document.getElementById("tel").value}\\nEMAIL:${document.getElementById("email").value}\\nEND:VCARD`;
-        break;
-      case "event":
-        qrData = `BEGIN:VEVENT\\nSUMMARY:${document.getElementById("summary").value}\\nLOCATION:${document.getElementById("location").value}\\nDTSTART:${document.getElementById("start").value}\\nDTEND:${document.getElementById("end").value}\\nEND:VEVENT`;
-        break;
-      case "geo":
-        qrData = `geo:${document.getElementById("lat").value},${document.getElementById("lng").value}`;
-        break;
-    }
-
-    const qr = new QRious({
-      element: canvas,
-      value: qrData,
-      size: 300,
-      level: 'H'
-    });
-
-    // Overlay the uploaded image (if ready)
-    const ready = previewImage.getAttribute("data-ready");
-    const src = previewImage.getAttribute("data-src");
-
-    if (ready === "true" && src) {
-      const img = new Image();
-      img.onload = function () {
-        const ctx = canvas.getContext("2d");
-        const size = canvas.width * 0.25;
-        const x = (canvas.width - size) / 2;
-        const y = (canvas.height - size) / 2;
-        ctx.drawImage(img, x, y, size, size);
-      };
-      img.src = src;
-    }
-  });
-});
+        const encryption = document.getElementById("encryption").value ||
