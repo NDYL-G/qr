@@ -130,8 +130,11 @@ document.addEventListener("DOMContentLoaded", function () {
       level: 'H'
     });
 
-    // If an image is loaded, draw it on top of the QR code
-    if (previewImage.dataset.ready === "true") {
+    // Overlay the uploaded image (if ready)
+    const ready = previewImage.getAttribute("data-ready");
+    const src = previewImage.getAttribute("data-src");
+
+    if (ready === "true" && src) {
       const img = new Image();
       img.onload = function () {
         const ctx = canvas.getContext("2d");
@@ -140,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const y = (canvas.height - size) / 2;
         ctx.drawImage(img, x, y, size, size);
       };
-      img.src = previewImage.dataset.src;
+      img.src = src;
     }
   });
 });
