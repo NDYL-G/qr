@@ -101,4 +101,53 @@ document.addEventListener("DOMContentLoaded", function () {
       case "wifi":
         const ssid = document.getElementById("ssid").value;
         const password = document.getElementById("password").value;
-        const encryption = document.getElementById("encryption").value ||
+        const encryption = document.getElementById("encryption").value || "WPA";
+        qrData = `WIFI:T:${encryption};S:${ssid};P:${password};;`;
+        break;
+      case "vcard":
+        qrData = `BEGIN:VCARD\\nVERSION:3.0\\nFN:${document.getElementById("name").value}\\nORG:${document.getElementById("org").value}\\nTEL:${document.getElementById("tel").value}\\nEMAIL:${document.getElementById("email").value}\\nEND:VCARD`;
+        break;
+      case "event":
+        qrData = `BEGIN:VEVENT\\nSUMMARY:${document.getElementById("summary").value}\\nLOCATION:${document.getElementById("location").value}\\nDTSTART:${document.getElementById("start").value}\\nDTEND:${document.getElementById("end").value}\\nEND:VEVENT`;
+        break;
+      case "geo":
+        qrData = `geo:${document.getElementById("lat").value},${document.getElementById("lng").value}`;
+        break;
+    }
+
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+
+    const ready = previewImage.getAttribute("data-ready") === "true";
+    const src = previewImage.getAttribute("data-src");
+
+    // If an image is selected, load it first THEN draw QR + overlay
+    if (ready && src) {
+      const img = new Image();
+      img.onload = function () {
+        // First generate QR code
+        const qr = new QRious({
+          element: canvas,
+          value: qrData,
+          size: 300,
+          level: 'H'
+        });
+
+        // Then overlay the image
+        const size = canvas.width * 0.25;
+        const x = (canvas.width - size) / 2;
+        const y = (canvas.height - size) / 2;
+        ctx.drawImage(img, x, y, size, size);
+      };
+      img.src = src;
+    } else {
+      // No image: just draw QR code
+      new QRious({
+        element: canvas,
+        value: qrData,
+        size: 300,
+        level: 'H'
+      });
+    }
+  });
+});
