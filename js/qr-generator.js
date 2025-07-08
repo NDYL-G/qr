@@ -124,10 +124,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Then overlay image if present
-    const ready = previewImage.getAttribute("data-ready") === "true";
-    const src = previewImage.getAttribute("data-src");
+   const src = previewImage.src;
 
-    if (ready && src) {
+    if (previewImage.style.display !== "none" && src && src.startsWith("data:image")) {
       const img = new Image();
       img.onload = function () {
         const ctx = canvas.getContext("2d");
