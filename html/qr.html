@@ -3,13 +3,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Styled QR Code Generator</title>
+  <title>Full QR Code Generator</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="stylesheet" href="../css/qr.css" />
 </head>
 <body>
   <main>
-    <h1>Styled QR Code Generator</h1>
+    <h1>Full Feature QR Code Generator</h1>
 
     <form id="qrForm">
       <label for="qrData">QR Code Content:</label>
@@ -28,6 +28,17 @@
         <option value="dot">Dot</option>
         <option value="extra-rounded">Extra Rounded</option>
       </select>
+
+      <label for="errorCorrection">Error Correction Level:</label>
+      <select id="errorCorrection">
+        <option value="L">L – Low (7%)</option>
+        <option value="M">M – Medium (15%)</option>
+        <option value="Q">Q – Quartile (25%)</option>
+        <option value="H" selected>H – High (30%)</option>
+      </select>
+
+      <label for="logoSize">Logo Size (% of QR): <span id="logoSizeValue">20%</span></label>
+      <input type="range" id="logoSize" min="10" max="40" step="5" value="20">
 
       <label for="mainColor">Main Colour:</label>
       <input type="color" id="mainColor" value="#000000" />
