@@ -1,24 +1,18 @@
+
 document.addEventListener("DOMContentLoaded", function () {
   const dropZone = document.getElementById("qrDropZone");
   const fileInput = document.getElementById("qrLogo");
   const previewImage = document.getElementById("logoPreview");
+  const useDefaultCheckbox = document.getElementById("useDefaultLogo");
 
   function handleFile(file) {
-    if (!file.type.startsWith("image/")) {
-      alert("Only image files are supported.");
-      return;
-    }
-
-    if (file.size > 2 * 1024 * 1024) {
-      alert("Warning: Large file size may slow down QR rendering.");
-    }
+    if (!file.type.startsWith("image/")) return;
 
     const reader = new FileReader();
     reader.onload = function (e) {
       previewImage.src = e.target.result;
       previewImage.style.display = "block";
-      previewImage.setAttribute("data-ready", "true");
-      previewImage.setAttribute("data-src", e.target.result);
+      useDefaultCheckbox.checked = false;
     };
     reader.readAsDataURL(file);
   }
@@ -42,13 +36,22 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
     dropZone.classList.remove("dragging");
     if (e.dataTransfer.files.length > 0) {
-      const file = e.dataTransfer.files[0];
       fileInput.files = e.dataTransfer.files;
-      handleFile(file);
+      handleFile(e.dataTransfer.files[0]);
     }
   });
 
   dropZone.addEventListener("click", function () {
     fileInput.click();
+  });
+
+  useDefaultCheckbox.addEventListener("change", function () {
+    if (this.checked) {
+      previewImage.src = "../img/logo.png";
+      previewImage.style.display = "block";
+    } else {
+      previewImage.src = "";
+      previewImage.style.display = "none";
+    }
   });
 });

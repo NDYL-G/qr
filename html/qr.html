@@ -5,15 +5,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Generate QR Code</title>
-  <link rel="stylesheet" href="../css/style.css"/>
-  <link rel="stylesheet" href="../css/navbar.css"/>
-  <link rel="stylesheet" href="../css/landing.css"/>
   <link rel="stylesheet" href="../css/qr.css"/>
-  <link rel="icon" type="image/x-icon" href="../img/favicon.ico"/>
 </head>
 <body>
-  <div id="page-header"></div>
-
   <main class="content">
     <h1>Custom QR Code Generator</h1>
 
@@ -23,12 +17,6 @@
         <option value="url">Website URL</option>
         <option value="text">Text</option>
         <option value="email">Email</option>
-        <option value="phone">Phone</option>
-        <option value="sms">SMS</option>
-        <option value="wifi">Wi-Fi</option>
-        <option value="vcard">vCard</option>
-        <option value="event">Calendar Event</option>
-        <option value="geo">Geolocation</option>
       </select>
 
       <div id="qrInputs" style="margin-top: 1em;"></div>
@@ -36,7 +24,10 @@
       <label for="qrLogo">Upload Logo (optional):</label>
       <input type="file" id="qrLogo" accept="image/*" style="display:none" />
       <div id="qrDropZone">Click or drag an image here to add a logo</div>
-      <img id="logoPreview" alt="Logo Preview"/>
+      <div style="margin-top: 0.5em;">
+        <label><input type="checkbox" id="useDefaultLogo" checked> Use default logo (logo.png)</label>
+      </div>
+      <img id="logoPreview" src="../img/logo.png" alt="Logo Preview"/>
 
       <button type="submit" style="margin-top: 1em;">Generate QR Code</button>
     </form>
@@ -44,9 +35,8 @@
     <canvas id="qrCanvas" width="300" height="300"></canvas>
   </main>
 
-<script src="../js/header-footer-loader.js"></script>
-<script src="../js/qrious.min.js"></script>
-<script src="../js/drag-drop.js"></script>
-<script src="../js/qr-generator.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
+  <script src="../js/drag-drop.js"></script>
+  <script src="../js/qr-generator.js"></script>
 </body>
 </html>
