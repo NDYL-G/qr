@@ -17,20 +17,18 @@ document.addEventListener("DOMContentLoaded", function () {
     reader.onload = function (e) {
       previewImage.src = e.target.result;
       previewImage.style.display = "block";
-      previewImage.dataset.ready = "true";
-      previewImage.dataset.src = e.target.result;
+      previewImage.setAttribute("data-ready", "true");
+      previewImage.setAttribute("data-src", e.target.result);
     };
     reader.readAsDataURL(file);
   }
 
-  // Manual browse: handle file when selected
   fileInput.addEventListener("change", function () {
     if (fileInput.files.length > 0) {
       handleFile(fileInput.files[0]);
     }
   });
 
-  // Drag-and-drop: highlight zone
   dropZone.addEventListener("dragover", function (e) {
     e.preventDefault();
     dropZone.classList.add("dragging");
@@ -40,18 +38,16 @@ document.addEventListener("DOMContentLoaded", function () {
     dropZone.classList.remove("dragging");
   });
 
-  // Drop file: preview and prepare it
   dropZone.addEventListener("drop", function (e) {
     e.preventDefault();
     dropZone.classList.remove("dragging");
     if (e.dataTransfer.files.length > 0) {
       const file = e.dataTransfer.files[0];
-      fileInput.files = e.dataTransfer.files; // Sync file input
+      fileInput.files = e.dataTransfer.files;
       handleFile(file);
     }
   });
 
-  // Clicking drop zone opens file dialog
   dropZone.addEventListener("click", function () {
     fileInput.click();
   });
