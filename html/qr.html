@@ -1,18 +1,70 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Final QR Code Generator</title>
+  <title>QR Code Generator with Purpose</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="stylesheet" href="../css/qr.css" />
 </head>
 <body>
   <main>
-    <h1>Full Feature QR Code Generator</h1>
+    <h1>QR Code Generator</h1>
 
     <form id="qrForm">
-      <label for="qrData">QR Code Content:</label>
-      <input type="text" id="qrData" placeholder="Enter URL, text, etc." required>
+      <label for="qrType">QR Code Type:</label>
+      <select id="qrType">
+        <option value="url">URL</option>
+        <option value="text">Text</option>
+        <option value="email">Email</option>
+        <option value="phone">Phone</option>
+        <option value="sms">SMS</option>
+        <option value="wifi">Wi-Fi</option>
+        <option value="vcard">vCard</option>
+      </select>
+
+      <div id="inputFields">
+        <div id="urlField" class="purpose-field">
+          <label for="urlInput">URL:</label>
+          <input type="text" id="urlInput" />
+        </div>
+        <div id="textField" class="purpose-field">
+          <label for="textInput">Text:</label>
+          <input type="text" id="textInput" />
+        </div>
+        <div id="emailField" class="purpose-field">
+          <label for="emailInput">Email:</label>
+          <input type="email" id="emailInput" />
+        </div>
+        <div id="phoneField" class="purpose-field">
+          <label for="phoneInput">Phone Number:</label>
+          <input type="tel" id="phoneInput" />
+        </div>
+        <div id="smsField" class="purpose-field">
+          <label for="smsInput">SMS Number:</label>
+          <input type="tel" id="smsInput" />
+        </div>
+        <div id="wifiField" class="purpose-field">
+          <label for="ssidInput">SSID:</label>
+          <input type="text" id="ssidInput" />
+          <label for="wifiPasswordInput">Password:</label>
+          <input type="text" id="wifiPasswordInput" />
+          <label for="encryption">Encryption:</label>
+          <select id="encryption">
+            <option value="WPA">WPA/WPA2</option>
+            <option value="WEP">WEP</option>
+            <option value="nopass">None</option>
+          </select>
+        </div>
+        <div id="vcardField" class="purpose-field">
+          <label for="vcardName">Full Name:</label>
+          <input type="text" id="vcardName" />
+          <label for="vcardPhone">Phone:</label>
+          <input type="tel" id="vcardPhone" />
+          <label for="vcardEmail">Email:</label>
+          <input type="email" id="vcardEmail" />
+        </div>
+      </div>
 
       <label for="dotStyle">Dot Style:</label>
       <select id="dotStyle">
@@ -58,6 +110,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js"></script>
-  <script src="../js/qr-final.js"></script>
+  <script src="../js/qr-purpose.js"></script>
 </body>
 </html>
