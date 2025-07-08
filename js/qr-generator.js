@@ -115,7 +115,8 @@ document.addEventListener("DOMContentLoaded", function () {
         break;
     }
 
-    // Always generate the QR code first
+    console.log("Generating QR with data:", qrData);
+
     const qr = new QRious({
       element: canvas,
       value: qrData,
@@ -123,19 +124,25 @@ document.addEventListener("DOMContentLoaded", function () {
       level: 'H'
     });
 
-    // Then overlay image if present
-   const src = previewImage.src;
-
+    // Wait for image to load and then draw
+    const src = previewImage.src;
     if (previewImage.style.display !== "none" && src && src.startsWith("data:image")) {
+      console.log("Attempting to overlay image:", src.substring(0, 50) + "...");
       const img = new Image();
       img.onload = function () {
+        console.log("Image loaded. Drawing overlay...");
         const ctx = canvas.getContext("2d");
         const size = canvas.width * 0.25;
         const x = (canvas.width - size) / 2;
         const y = (canvas.height - size) / 2;
         ctx.drawImage(img, x, y, size, size);
       };
+      img.onerror = function () {
+        console.warn("Image failed to load.");
+      };
       img.src = src;
+    } else {
+      console.log("No image overlay will be applied.");
     }
   });
 });
