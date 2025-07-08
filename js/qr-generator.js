@@ -115,39 +115,28 @@ document.addEventListener("DOMContentLoaded", function () {
         break;
     }
 
-    const ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+    // Always generate the QR code first
+    const qr = new QRious({
+      element: canvas,
+      value: qrData,
+      size: 300,
+      level: 'H'
+    });
 
+    // Then overlay image if present
     const ready = previewImage.getAttribute("data-ready") === "true";
     const src = previewImage.getAttribute("data-src");
 
-    // If an image is selected, load it first THEN draw QR + overlay
     if (ready && src) {
       const img = new Image();
       img.onload = function () {
-        // First generate QR code
-        const qr = new QRious({
-          element: canvas,
-          value: qrData,
-          size: 300,
-          level: 'H'
-        });
-
-        // Then overlay the image
+        const ctx = canvas.getContext("2d");
         const size = canvas.width * 0.25;
         const x = (canvas.width - size) / 2;
         const y = (canvas.height - size) / 2;
         ctx.drawImage(img, x, y, size, size);
       };
       img.src = src;
-    } else {
-      // No image: just draw QR code
-      new QRious({
-        element: canvas,
-        value: qrData,
-        size: 300,
-        level: 'H'
-      });
     }
   });
 });
