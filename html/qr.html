@@ -102,28 +102,27 @@
           </fieldset>
 
           <label for="qrLogo">Upload Logo (optional):</label>
-          <div class="logo-drop-container" id="logoDropContainer">
-            <input type="file" id="qrLogo" accept="image/*" />
-            <img id="logoPreview" src="../img/logo.svg" alt="Logo Preview"/>
-            <div class="logo-drop-overlay" id="logoDropOverlay">Drop image here</div>
-          </div>
-
-          <div class="color-row">
-            <div>
-              <label for="mainColor">Main Colour:</label>
-              <input type="color" id="mainColor" value="#000000" />
-            </div>
-            <div>
-              <label for="gradientColor">Gradient End Colour:</label>
-              <input type="color" id="gradientColor" value="#3333ff" />
-            </div>
-          </div>
-
-          <div id="colourSwatches"></div>
+          <input type="file" id="qrLogo" accept="image/*" />
         </form>
       </div>
 
       <div class="preview-panel">
+        <div class="logo-drop-container" id="logoDropContainer">
+          <img id="logoPreview" src="../img/logo.svg" alt="Logo Preview"/>
+          <div class="logo-drop-overlay" id="logoDropOverlay">Drop image here</div>
+        </div>
+
+        <div class="color-row">
+          <div>
+            <label for="mainColor">Main Colour:</label>
+            <input type="color" id="mainColor" value="#000000" />
+          </div>
+          <div>
+            <label for="gradientColor">Gradient End Colour:</label>
+            <input type="color" id="gradientColor" value="#3333ff" />
+          </div>
+        </div>
+
         <div id="qrCanvas"></div>
         <button type="submit" class="generate-btn" form="qrForm">Generate QR Code</button>
       </div>
