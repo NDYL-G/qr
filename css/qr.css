@@ -1,4 +1,3 @@
-
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -62,20 +61,23 @@ legend {
   align-items: center;
 }
 #logoPreview {
-  margin-top: 1em;
+  width: 100%;
   max-height: 100px;
   display: block;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  transition: 0.2s ease;
+}
+.logo-drop-container {
   position: relative;
+  width: 100px;
+  height: 100px;
 }
 .logo-drop-overlay {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   display: none;
@@ -83,9 +85,11 @@ legend {
   justify-content: center;
   text-align: center;
   border-radius: 8px;
+  font-size: 0.9rem;
+  pointer-events: none;
 }
-#qrCanvas {
-  margin-top: 2em;
+.logo-drop-container.dragover .logo-drop-overlay {
+  display: flex;
 }
 .color-row {
   display: flex;
@@ -93,15 +97,7 @@ legend {
   align-items: center;
   margin-top: 1em;
 }
-.colour-swatch {
-  width: 24px;
-  height: 24px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  margin: 4px;
-  cursor: pointer;
-}
-button.generate-btn {
+.generate-btn {
   margin-top: 2em;
   padding: 0.7em 1.5em;
   background-color: #222;
