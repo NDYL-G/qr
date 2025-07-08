@@ -5,6 +5,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const canvas = document.getElementById("qrCanvas");
   const previewImage = document.getElementById("logoPreview");
 
+  if (!form || !typeSelect || !inputContainer || !canvas) {
+    console.error("Essential form elements not found. Check HTML IDs.");
+    return;
+  }
+
   function clearInputs() {
     inputContainer.innerHTML = "";
   }
@@ -124,13 +129,21 @@ document.addEventListener("DOMContentLoaded", function () {
       level: 'H'
     });
 
-    // Wait for image to load and then draw
+    // Handle logo overlay
+    if (!previewImage) {
+      console.warn("Logo preview image (logoPreview) not found in DOM.");
+      return;
+    }
+
     const src = previewImage.src;
-    if (previewImage.style.display !== "none" && src && src.startsWith("data:image")) {
-      console.log("Attempting to overlay image:", src.substring(0, 50) + "...");
+    if (
+      previewImage.style.display !== "none" &&
+      src &&
+      src.startsWith("data:image")
+    ) {
       const img = new Image();
       img.onload = function () {
-        console.log("Image loaded. Drawing overlay...");
+        console.log("Overlay image loaded. Drawing on canvas.");
         const ctx = canvas.getContext("2d");
         const size = canvas.width * 0.25;
         const x = (canvas.width - size) / 2;
@@ -138,11 +151,11 @@ document.addEventListener("DOMContentLoaded", function () {
         ctx.drawImage(img, x, y, size, size);
       };
       img.onerror = function () {
-        console.warn("Image failed to load.");
+        console.warn("Failed to load image:", src);
       };
       img.src = src;
     } else {
-      console.log("No image overlay will be applied.");
+      console.log("No valid image found for overlay.");
     }
   });
 });
