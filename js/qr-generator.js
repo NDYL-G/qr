@@ -1,63 +1,146 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>QR Code Generator</title>
-  <link rel="stylesheet" href="../css/style.css" />
-  <link rel="stylesheet" href="../css/navbar.css" />
-  <link rel="stylesheet" href="../css/landing.css" />
-  <link rel="icon" type="image/x-icon" href="../img/favicon.ico" />
-</head>
-<body>
-  <div id="header"></div>
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("qrForm");
+  const typeSelect = document.getElementById("qrType");
+  const inputContainer = document.getElementById("qrInputs");
+  const canvas = document.getElementById("qrCanvas");
+  const previewImage = document.getElementById("logoPreview");
 
-  <main>
-    <section class="content">
-      <h1>QR Code Generator</h1>
-      <p>Use the form below to generate a custom QR code based on your selected content type.</p>
+  // Clears all dynamic input fields
+  function clearInputs() {
+    inputContainer.innerHTML = "";
+  }
 
-      <form id="qrForm">
-        <label for="qrType">Select QR Code Type:</label>
-        <select id="qrType" name="qrType">
-          <option value="url">URL</option>
-          <option value="text">Text</option>
-          <option value="email">Email</option>
-          <option value="phone">Phone Number</option>
-          <option value="sms">SMS</option>
-          <option value="wifi">Wi-Fi</option>
-          <option value="vcard">Contact (vCard)</option>
-          <option value="event">Calendar Event</option>
-          <option value="geo">Location</option>
-        </select>
+  // Creates and returns a labelled text input
+  function createInput(name, label, placeholder = "") {
+    const wrapper = document.createElement("div");
+    wrapper.style.marginBottom = "0.5em";
 
-        <div id="qrInputs">
-          <!-- Dynamic inputs will be injected here -->
-        </div>
+    const lbl = document.createElement("label");
+    lbl.setAttribute("for", name);
+    lbl.textContent = label;
 
-        <label for="qrLogo">Upload Centre Image (optional):</label>
-        <div id="qrDropZone" style="border: 2px dashed #ccc; padding: 1em; text-align: center; cursor: pointer;">
-          <p>📥 Drag and drop your image here, or click to select a file.</p>
-          <input type="file" id="qrLogo" accept="image/*" style="display: none;" />
-          <img id="logoPreview" alt="Image preview" style="max-width: 100px; margin-top: 10px; display: none;" />
-        </div>
+    const input = document.createElement("input");
+    input.type = "text";
+    input.name = name;
+    input.id = name;
+    input.placeholder = placeholder;
 
-        <button type="submit" style="margin-top: 1em;">Generate QR Code</button>
-      </form>
+    wrapper.appendChild(lbl);
+    wrapper.appendChild(input);
+    return wrapper;
+  }
 
-      <div id="qrPreview" style="margin-top: 2em;">
-        <h2>Preview</h2>
-        <canvas id="qrCanvas"></canvas>
-      </div>
-    </section>
-  </main>
+  // Generates inputs based on the selected QR code type
+  function updateInputs(type) {
+    clearInputs();
+    switch (type) {
+      case "url":
+        inputContainer.appendChild(createInput("url", "Website URL", "https://example.com"));
+        break;
+      case "text":
+        inputContainer.appendChild(createInput("text", "Text Message"));
+        break;
+      case "email":
+        inputContainer.appendChild(createInput("email", "Email Address", "someone@example.com"));
+        break;
+      case "phone":
+        inputContainer.appendChild(createInput("phone", "Phone Number", "+441234567890"));
+        break;
+      case "sms":
+        inputContainer.appendChild(createInput("sms", "SMS Number", "+441234567890"));
+        inputContainer.appendChild(createInput("smsbody", "Message Body"));
+        break;
+      case "wifi":
+        inputContainer.appendChild(createInput("ssid", "Wi-Fi SSID"));
+        inputContainer.appendChild(createInput("password", "Password"));
+        inputContainer.appendChild(createInput("encryption", "Encryption Type (WPA/WEP)"));
+        break;
+      case "vcard":
+        inputContainer.appendChild(createInput("name", "Full Name"));
+        inputContainer.appendChild(createInput("org", "Organisation"));
+        inputContainer.appendChild(createInput("tel", "Telephone"));
+        inputContainer.appendChild(createInput("email", "Email"));
+        break;
+      case "event":
+        inputContainer.appendChild(createInput("summary", "Event Title"));
+        inputContainer.appendChild(createInput("location", "Location"));
+        inputContainer.appendChild(createInput("start", "Start (YYYYMMDDTHHMMSSZ)"));
+        inputContainer.appendChild(createInput("end", "End (YYYYMMDDTHHMMSSZ)"));
+        break;
+      case "geo":
+        inputContainer.appendChild(createInput("lat", "Latitude"));
+        inputContainer.appendChild(createInput("lng", "Longitude"));
+        break;
+    }
+  }
 
-  <div id="footer"></div>
+  // Listen for dropdown changes
+  typeSelect.addEventListener("change", function () {
+    updateInputs(typeSelect.value);
+  });
 
-  <!-- Script dependencies -->
-  <script src="../js/include-loader.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
-  <script src="../js/qr-generator.js"></script>
-  <script src="../js/drag-drop.js"></script>
-</body>
-</html>
+  // Initialise with default selection
+  updateInputs(typeSelect.value);
+
+  // Handle form submission to generate QR
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    let qrData = "";
+    const type = typeSelect.value;
+
+    switch (type) {
+      case "url":
+        qrData = document.getElementById("url").value;
+        break;
+      case "text":
+        qrData = document.getElementById("text").value;
+        break;
+      case "email":
+        qrData = "mailto:" + document.getElementById("email").value;
+        break;
+      case "phone":
+        qrData = "tel:" + document.getElementById("phone").value;
+        break;
+      case "sms":
+        const number = document.getElementById("sms").value;
+        const body = document.getElementById("smsbody").value;
+        qrData = `sms:${number}?body=${encodeURIComponent(body)}`;
+        break;
+      case "wifi":
+        const ssid = document.getElementById("ssid").value;
+        const password = document.getElementById("password").value;
+        const encryption = document.getElementById("encryption").value || "WPA";
+        qrData = `WIFI:T:${encryption};S:${ssid};P:${password};;`;
+        break;
+      case "vcard":
+        qrData = `BEGIN:VCARD\\nVERSION:3.0\\nFN:${document.getElementById("name").value}\\nORG:${document.getElementById("org").value}\\nTEL:${document.getElementById("tel").value}\\nEMAIL:${document.getElementById("email").value}\\nEND:VCARD`;
+        break;
+      case "event":
+        qrData = `BEGIN:VEVENT\\nSUMMARY:${document.getElementById("summary").value}\\nLOCATION:${document.getElementById("location").value}\\nDTSTART:${document.getElementById("start").value}\\nDTEND:${document.getElementById("end").value}\\nEND:VEVENT`;
+        break;
+      case "geo":
+        qrData = `geo:${document.getElementById("lat").value},${document.getElementById("lng").value}`;
+        break;
+    }
+
+    const qr = new QRious({
+      element: canvas,
+      value: qrData,
+      size: 300,
+      level: 'H'
+    });
+
+    // If an image is loaded, draw it on top of the QR code
+    if (previewImage.dataset.ready === "true") {
+      const img = new Image();
+      img.onload = function () {
+        const ctx = canvas.getContext("2d");
+        const size = canvas.width * 0.25;
+        const x = (canvas.width - size) / 2;
+        const y = (canvas.height - size) / 2;
+        ctx.drawImage(img, x, y, size, size);
+      };
+      img.src = previewImage.dataset.src;
+    }
+  });
+});
