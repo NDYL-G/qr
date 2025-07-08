@@ -1,17 +1,62 @@
 
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+header, footer {
+  background-color: #222;
+  color: white;
+  padding: 1em;
+  text-align: center;
+}
+main {
+  padding: 1em;
+}
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.options-panel {
+  flex: 2;
+  min-width: 300px;
+}
+.preview-panel {
+  flex: 1;
+  min-width: 320px;
+  padding-left: 2rem;
+}
 form label {
   display: block;
   margin-top: 1em;
   font-weight: bold;
 }
-form input, form select {
+form input[type="text"],
+form input[type="email"],
+form input[type="tel"],
+form input[type="range"],
+form select {
   width: 100%;
   padding: 0.4em;
   margin-top: 0.3em;
   box-sizing: border-box;
 }
-#qrCanvas {
-  margin-top: 2em;
+fieldset {
+  margin-top: 1em;
+  padding: 0.5em;
+  border: 1px solid #ccc;
+}
+legend {
+  font-weight: bold;
+}
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+.radio-group label {
+  display: flex;
+  align-items: center;
 }
 #logoPreview {
   margin-top: 1em;
@@ -31,6 +76,6 @@ form input, form select {
   margin: 4px;
   cursor: pointer;
 }
-.purpose-field {
-  display: none;
+#qrCanvas {
+  margin-top: 2em;
 }
