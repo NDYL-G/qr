@@ -111,9 +111,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const type = qrType.value;
     const data = buildQRContent(type);
 
-    const dotStyle = document.getElementById("dotStyle").value;
-    const cornerStyle = document.getElementById("cornerStyle").value;
-    const errorCorrection = document.getElementById("errorCorrection").value;
+    const dotStyle = document.querySelector('input[name="dotStyle"]:checked').value;
+    const cornerStyle = document.querySelector('input[name="cornerStyle"]:checked').value;
+    const errorCorrection = document.querySelector('input[name="errorCorrection"]:checked').value;
     const mainColor = mainColorInput.value;
     const gradientColor = gradientColorInput.value;
     const logo = logoPreview.src;
