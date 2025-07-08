@@ -1,0 +1,35 @@
+
+#qrDropZone {
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  margin-top: 1em;
+  cursor: pointer;
+}
+#qrDropZone.dragging {
+  background-color: #eef;
+  border-color: #66f;
+}
+#logoPreview {
+  margin-top: 1em;
+  max-height: 100px;
+  display: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+canvas {
+  margin-top: 1.5em;
+  display: block;
+}
+form input[type="text"] {
+  width: 100%;
+  padding: 0.5em;
+  margin-top: 0.25em;
+  box-sizing: border-box;
+}
+form label {
+  display: block;
+  margin-top: 0.5em;
+  font-weight: bold;
+}
