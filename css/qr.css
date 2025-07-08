@@ -22,7 +22,9 @@ canvas {
   margin-top: 1.5em;
   display: block;
 }
-form input[type="text"] {
+form input[type="text"],
+form select,
+form input[type="range"] {
   width: 100%;
   padding: 0.5em;
   margin-top: 0.25em;
@@ -32,4 +34,8 @@ form label {
   display: block;
   margin-top: 0.5em;
   font-weight: bold;
+}
+#logoSizeValue {
+  margin-left: 0.5em;
+  font-weight: normal;
 }

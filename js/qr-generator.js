@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const type = typeSelect.value;
     const value = document.getElementById(type).value;
     const errorLevel = document.getElementById("qrErrorLevel").value;
+    const logoSizePercent = parseInt(document.getElementById("logoSize").value, 10);
     const qrData = value;
 
     const qr = new QRious({
@@ -49,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const img = new Image();
       img.onload = function () {
         const ctx = canvas.getContext("2d");
-        const size = canvas.width * 0.25;
+        const size = canvas.width * (logoSizePercent / 100);
         const x = (canvas.width - size) / 2;
         const y = (canvas.height - size) / 2;
         ctx.drawImage(img, x, y, size, size);

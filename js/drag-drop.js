@@ -54,4 +54,10 @@ document.addEventListener("DOMContentLoaded", function () {
       previewImage.style.display = "none";
     }
   });
+
+  const sizeSlider = document.getElementById("logoSize");
+  const sizeValue = document.getElementById("logoSizeValue");
+  sizeSlider.addEventListener("input", function () {
+    sizeValue.textContent = `${this.value}%`;
+  });
 });
