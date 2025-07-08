@@ -1,15 +1,14 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>QR Code with Image Colours</title>
+  <title>Final QR Code Generator</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="stylesheet" href="../css/qr.css" />
 </head>
 <body>
   <main>
-    <h1>QR Code with Image Colours</h1>
+    <h1>Full Feature QR Code Generator</h1>
 
     <form id="qrForm">
       <label for="qrData">QR Code Content:</label>
@@ -29,8 +28,22 @@
         <option value="extra-rounded">Extra Rounded</option>
       </select>
 
+      <label for="errorCorrection">Error Correction Level:</label>
+      <select id="errorCorrection">
+        <option value="L">L – Low (7%)</option>
+        <option value="M">M – Medium (15%)</option>
+        <option value="Q">Q – Quartile (25%)</option>
+        <option value="H" selected>H – High (30%)</option>
+      </select>
+
+      <label for="logoSize">Logo Size (% of QR): <span id="logoSizeValue">20%</span></label>
+      <input type="range" id="logoSize" min="10" max="40" step="5" value="20">
+
       <label for="mainColor">Main Colour:</label>
       <input type="color" id="mainColor" value="#000000" />
+
+      <label for="gradientColor">Gradient End Colour:</label>
+      <input type="color" id="gradientColor" value="#3333ff" />
 
       <label for="qrLogo">Upload Logo (optional):</label>
       <input type="file" id="qrLogo" accept="image/*" />
@@ -45,6 +58,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js"></script>
-  <script src="../js/qr-with-colours.js"></script>
+  <script src="../js/qr-final.js"></script>
 </body>
 </html>
