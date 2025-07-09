@@ -136,6 +136,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const active = document.getElementById(selected);
     if (active) active.style.display = "block";
   }
-  // Trigger initial QR code generation
-form.dispatchEvent(new Event("submit"));
+
+  updatePurposeFields();
+
+  // ✅ Trigger initial QR code generation using default URL
+  form.dispatchEvent(new Event("submit"));
 });
+
