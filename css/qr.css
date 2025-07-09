@@ -1,80 +1,36 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+
+form label {
+  display: block;
+  margin-top: 1em;
+  font-weight: bold;
 }
-header, footer {
-  background-color: #222;
-  color: white;
-  padding: 1em;
-  text-align: center;
-}
-main {
-  padding: 1em;
-}
-.container {
-  display: flex;
-  flex-wrap: wrap;
-}
-.options-panel {
-  flex: 2;
-  min-width: 300px;
-}
-.preview-panel {
-  flex: 1;
-  min-width: 320px;
-  padding-left: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+form input, form select {
+  width: 100%;
+  padding: 0.4em;
+  margin-top: 0.3em;
+  box-sizing: border-box;
 }
 #qrCanvas {
   margin-top: 2em;
 }
-.color-row {
-  display: flex;
-  gap: 1em;
-  align-items: center;
-  margin-top: 1em;
-}
-.generate-btn {
-  margin-top: 2em;
-  padding: 0.7em 1.5em;
-  background-color: #222;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-/* Logo preview and drag overlay */
-.logo-drop-container {
-  position: relative;
-  width: 100px;
-  height: 100px;
-}
 #logoPreview {
-  width: 100%;
-  height: auto;
+  margin-top: 1em;
+  max-height: 100px;
+  display: block;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
-.logo-drop-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  pointer-events: none;
+#colourSwatches {
+  margin-top: 1em;
 }
-.logo-drop-container.dragover .logo-drop-overlay {
-  display: flex;
+.colour-swatch {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  margin: 4px;
+  cursor: pointer;
+}
+.purpose-field {
+  display: none;
 }
