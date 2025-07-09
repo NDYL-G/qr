@@ -139,7 +139,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   updatePurposeFields();
 
-  // ✅ Trigger initial QR code generation using default URL
+// Trigger QR generation once after all setup
+setTimeout(() => {
   form.dispatchEvent(new Event("submit"));
+}, 10);
+
 });
 
