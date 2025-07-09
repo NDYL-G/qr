@@ -14,6 +14,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const qrType = document.getElementById("qrType");
   const inputFields = document.querySelectorAll(".purpose-field");
 
+  // Set default URL
+  urlInput.value = window.location.href;
+
   qrType.addEventListener("change", updatePurposeFields);
   updatePurposeFields();
 
