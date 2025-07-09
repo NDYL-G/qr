@@ -1,148 +1,162 @@
-// qr-purpose.js
 
 document.addEventListener("DOMContentLoaded", function () {
+  const qrType = document.getElementById("qrType");
+  const fields = document.querySelectorAll(".purpose-field");
+
+  function updateFieldVisibility() {
+    fields.forEach(f => f.style.display = "none");
+    const selected = document.getElementById(qrType.value + "Field");
+    if (selected) selected.style.display = "block";
+  }
+
+  qrType.addEventListener("change", updateFieldVisibility);
+  updateFieldVisibility(); // initial run
+
   const form = document.getElementById("qrForm");
-  const urlInput = document.getElementById("urlInput");
-  const qrCanvas = document.getElementById("qrCanvas");
+  const qrContainer = document.getElementById("qrCanvas");
   const logoPreview = document.getElementById("logoPreview");
-  const logoDropContainer = document.getElementById("logoDropContainer");
+  const logoInput = document.getElementById("qrLogo");
+  const swatchContainer = document.getElementById("colourSwatches");
   const mainColorInput = document.getElementById("mainColor");
   const gradientColorInput = document.getElementById("gradientColor");
-  const logoSizeSlider = document.getElementById("logoSize");
+  const logoSizeInput = document.getElementById("logoSize");
   const logoSizeValue = document.getElementById("logoSizeValue");
 
-  const qrType = document.getElementById("qrType");
-  const inputFields = document.querySelectorAll(".purpose-field");
+  const colorThief = new ColorThief();
 
-  // Set default URL
-  urlInput.value = window.location.href;
+  function rgbToHex(r, g, b) {
+    return "#" + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
+  }
 
-  qrType.addEventListener("change", updatePurposeFields);
-  updatePurposeFields();
-
-  logoSizeSlider.addEventListener("input", () => {
-    logoSizeValue.textContent = `${logoSizeSlider.value}%`;
-  });
-
-  let qr;
-
-  form.addEventListener("submit", async function (e) {
-    e.preventDefault();
-
-    const type = qrType.value;
-    let data = "";
-
-    switch (type) {
-      case "url":
-        data = urlInput.value;
-        break;
-      case "text":
-        data = document.getElementById("textInput").value;
-        break;
-      case "email":
-        data = `mailto:${document.getElementById("emailInput").value}`;
-        break;
-      case "phone":
-        data = `tel:${document.getElementById("phoneInput").value}`;
-        break;
-      case "sms":
-        data = `sms:${document.getElementById("smsInput").value}`;
-        break;
-      case "wifi":
-        const ssid = document.getElementById("ssidInput").value;
-        const password = document.getElementById("wifiPasswordInput").value;
-        const encryption = document.getElementById("encryption").value;
-        data = `WIFI:T:${encryption};S:${ssid};P:${password};;`;
-        break;
-      case "vcard":
-        const name = document.getElementById("vcardName").value;
-        const phone = document.getElementById("vcardPhone").value;
-        const email = document.getElementById("vcardEmail").value;
-        data = `BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nTEL:${phone}\nEMAIL:${email}\nEND:VCARD`;
-        break;
-    }
-
-    const dotStyle = form.dotStyle.value;
-    const cornerStyle = form.cornerStyle.value;
-    const errorCorrection = form.errorCorrection.value;
-
-    const mainColor = mainColorInput.value;
-    const gradientColor = gradientColorInput.value;
-    const logoSize = parseInt(logoSizeSlider.value);
-
-    if (qrCanvas.firstChild) {
-      qrCanvas.innerHTML = "";
-    }
-
-    qr = new QRCodeStyling({
-      width: 300,
-      height: 300,
-      type: "svg",
-      data: data,
-      image: logoPreview.src,
-      imageOptions: {
-        crossOrigin: "anonymous",
-        imageSize: logoSize / 100
-      },
-      dotsOptions: {
-        gradient: {
-          type: "linear",
-          rotation: 0,
-          colorStops: [
-            { offset: 0, color: mainColor },
-            { offset: 1, color: gradientColor }
-          ]
-        },
-        type: dotStyle
-      },
-      cornersSquareOptions: {
-        type: cornerStyle,
-        color: mainColor
-      },
-      qrOptions: {
-        errorCorrectionLevel: errorCorrection
+  function generateSwatches(img) {
+    if (img.complete && img.naturalHeight !== 0) {
+      const palette = colorThief.getPalette(img, 5);
+      swatchContainer.innerHTML = "";
+      if (palette.length > 0) {
+        const primary = palette[0];
+        const secondary = palette[1] || palette[0];
+        mainColorInput.value = rgbToHex(primary[0], primary[1], primary[2]);
+        gradientColorInput.value = rgbToHex(secondary[0], secondary[1], secondary[2]);
+        palette.forEach(color => {
+          const hex = rgbToHex(color[0], color[1], color[2]);
+          const swatch = document.createElement("div");
+          swatch.className = "colour-swatch";
+          swatch.style.backgroundColor = hex;
+          swatch.title = hex;
+          swatch.onclick = () => {
+            mainColorInput.value = hex;
+          };
+          swatchContainer.appendChild(swatch);
+        });
       }
-    });
+    }
+  }
 
-    qr.append(qrCanvas);
-  });
+  logoPreview.onload = function () {
+    try {
+      generateSwatches(logoPreview);
+    } catch (e) {
+      console.warn("Swatch error:", e);
+    }
+  };
 
-  // Drag and Drop Overlay
-  logoDropContainer.addEventListener("dragover", function (e) {
-    e.preventDefault();
-    logoDropContainer.classList.add("dragover");
-  });
-
-  logoDropContainer.addEventListener("dragleave", function () {
-    logoDropContainer.classList.remove("dragover");
-  });
-
-  logoDropContainer.addEventListener("drop", function (e) {
-    e.preventDefault();
-    logoDropContainer.classList.remove("dragover");
-    const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith("image/")) {
+  logoInput.addEventListener("change", function () {
+    if (logoInput.files.length > 0) {
+      const file = logoInput.files[0];
       const reader = new FileReader();
-      reader.onload = function (evt) {
-        logoPreview.src = evt.target.result;
+      reader.onload = function (e) {
+        logoPreview.src = e.target.result;
       };
       reader.readAsDataURL(file);
     }
   });
 
-  function updatePurposeFields() {
-    inputFields.forEach(field => field.style.display = "none");
-    const selected = qrType.value + "Field";
-    const active = document.getElementById(selected);
-    if (active) active.style.display = "block";
+  logoSizeInput.addEventListener("input", function () {
+    logoSizeValue.textContent = this.value + "%";
+  });
+
+  function buildQRContent(type) {
+    switch (type) {
+      case "url":
+        return document.getElementById("urlInput").value;
+      case "text":
+        return document.getElementById("textInput").value;
+      case "email":
+        const email = document.getElementById("emailInput").value;
+        return `mailto:${email}`;
+      case "phone":
+        const phone = document.getElementById("phoneInput").value;
+        return `tel:${phone}`;
+      case "sms":
+        const sms = document.getElementById("smsInput").value;
+        return `sms:${sms}`;
+      case "wifi":
+        const ssid = document.getElementById("ssidInput").value;
+        const pass = document.getElementById("wifiPasswordInput").value;
+        const enc = document.getElementById("encryption").value;
+        return `WIFI:S:${ssid};T:${enc};P:${pass};;`;
+      case "vcard":
+        const name = document.getElementById("vcardName").value;
+        const vphone = document.getElementById("vcardPhone").value;
+        const vemail = document.getElementById("vcardEmail").value;
+        return `BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nTEL:${vphone}\nEMAIL:${vemail}\nEND:VCARD`;
+      default:
+        return "";
+    }
   }
 
-  updatePurposeFields();
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    qrContainer.innerHTML = "";
 
-// Trigger QR generation once after all setup
-setTimeout(() => {
-  form.dispatchEvent(new Event("submit"));
-}, 10);
+    const type = qrType.value;
+    const data = buildQRContent(type);
 
+    const dotStyle = document.getElementById("dotStyle").value;
+    const cornerStyle = document.getElementById("cornerStyle").value;
+    const errorCorrection = document.getElementById("errorCorrection").value;
+    const mainColor = mainColorInput.value;
+    const gradientColor = gradientColorInput.value;
+    const logo = logoPreview.src;
+    const logoSize = parseInt(logoSizeInput.value, 10) / 100;
+
+    const qrCode = new QRCodeStyling({
+      width: 300,
+      height: 300,
+      data: data,
+      image: logo.includes("data:image") || logo.includes("logo.png") ? logo : "",
+      qrOptions: {
+        errorCorrectionLevel: errorCorrection
+      },
+      dotsOptions: {
+        color: mainColor,
+        type: dotStyle
+      },
+      cornersSquareOptions: {
+        type: cornerStyle
+      },
+      backgroundOptions: {
+        color: "#ffffff"
+      },
+      imageOptions: {
+        crossOrigin: "anonymous",
+        imageSize: logoSize,
+        margin: 5
+      },
+      dotsOptionsGradient: {
+        type: "linear",
+        rotation: 0,
+        colorStops: [
+          { offset: 0, color: mainColor },
+          { offset: 1, color: gradientColor }
+        ]
+      }
+    });
+
+    qrCode.append(qrContainer);
+  });
+
+  if (logoPreview.complete) {
+    logoPreview.onload();
+  }
 });
-
