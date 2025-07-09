@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
     logoSizeValue.textContent = `${logoSizeSlider.value}%`;
   });
 
+  let qr;
+
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
@@ -65,21 +67,21 @@ document.addEventListener("DOMContentLoaded", function () {
     const gradientColor = gradientColorInput.value;
     const logoSize = parseInt(logoSizeSlider.value);
 
-    const image = new Image();
-    image.src = logoPreview.src;
+    if (qrCanvas.firstChild) {
+      qrCanvas.innerHTML = "";
+    }
 
-    const qr = new QRCodeStyling({
+    qr = new QRCodeStyling({
       width: 300,
       height: 300,
       type: "svg",
       data: data,
-      image: image.src,
+      image: logoPreview.src,
       imageOptions: {
         crossOrigin: "anonymous",
         imageSize: logoSize / 100
       },
       dotsOptions: {
-        color: mainColor,
         gradient: {
           type: "linear",
           rotation: 0,
@@ -99,7 +101,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    qrCanvas.innerHTML = "";
     qr.append(qrCanvas);
   });
 
