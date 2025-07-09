@@ -28,49 +28,36 @@ main {
   flex-direction: column;
   align-items: center;
 }
-form label {
-  display: block;
-  margin-top: 1em;
-  font-weight: bold;
+#qrCanvas {
+  margin-top: 2em;
 }
-form input[type="text"],
-form input[type="email"],
-form input[type="tel"],
-form input[type="range"],
-form select {
-  width: 100%;
-  padding: 0.4em;
-  margin-top: 0.3em;
-  box-sizing: border-box;
-}
-fieldset {
-  margin-top: 1em;
-  padding: 0.5em;
-  border: 1px solid #ccc;
-}
-legend {
-  font-weight: bold;
-}
-.radio-group {
+.color-row {
   display: flex;
-  flex-wrap: wrap;
   gap: 1em;
-}
-.radio-group label {
-  display: flex;
   align-items: center;
+  margin-top: 1em;
 }
-#logoPreview {
-  width: 100%;
-  max-height: 100px;
-  display: block;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+.generate-btn {
+  margin-top: 2em;
+  padding: 0.7em 1.5em;
+  background-color: #222;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
+
+/* Logo preview and drag overlay */
 .logo-drop-container {
   position: relative;
   width: 100px;
   height: 100px;
+}
+#logoPreview {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 .logo-drop-overlay {
   position: absolute;
@@ -90,19 +77,4 @@ legend {
 }
 .logo-drop-container.dragover .logo-drop-overlay {
   display: flex;
-}
-.color-row {
-  display: flex;
-  gap: 1em;
-  align-items: center;
-  margin-top: 1em;
-}
-.generate-btn {
-  margin-top: 2em;
-  padding: 0.7em 1.5em;
-  background-color: #222;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
 }
