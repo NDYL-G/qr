@@ -34,3 +34,22 @@ form input, form select {
 .purpose-field {
   display: none;
 }
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.settings {
+  flex: 1;
+  max-width: 400px;
+}
+
+.qr-display {
+  flex: 1;
+  text-align: center;
+}
