@@ -1,26 +1,80 @@
-<form id="qr-form">
-    <label for="qr-type">QR Type:</label>
-    <select id="qr-type" name="qr-type">
-        <option value="simple">Simple</option>
-        <option value="vcard">VCard</option>
-        <option value="url">URL</option>
-        <option value="email">Email</option>
-        <option value="sms">SMS</option>
-    </select>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>QR Code Generator</title>
+</head>
+<body>
+    <div class="main-container">
+        <form id="qrForm">
+            <label for="qrType">Select QR Type:</label>
+            <select id="qrType" onchange="showInputFields()">
+                <option value="url">URL</option>
+                <option value="text">Text</option>
+                <option value="email">Email</option>
+                <option value="phone">Phone</option>
+                <option value="sms">SMS</option>
+                <option value="wifi">WiFi</option>
+                <option value="vcard">vCard</option>
+            </select>
 
-    <label for="qr-color">Color:</label>
-    <input type="color" id="qr-color" name="qr-color" value="#000000">
+            <div id="dynamicFields">
+                <input type="text" id="urlField" placeholder="Enter URL" style="display:none;">
+                <input type="text" id="textField" placeholder="Enter Text" style="display:none;">
+                <input type="email" id="emailField" placeholder="Enter Email" style="display:none;">
+                <input type="tel" id="phoneField" placeholder="Enter Phone" style="display:none;">
+                <input type="text" id="smsField" placeholder="Enter SMS" style="display:none;">
+                <input type="text" id="wifiField" placeholder="Enter WiFi credentials" style="display:none;">
+                <input type="text" id="vcardField" placeholder="Enter vCard info" style="display:none;">
+            </div>
 
-    <label for="logo-upload">Upload Logo:</label>
-    <input type="file" id="logo-upload" name="logo-upload" accept="image/*">
+            <label for="dotStyle">Dot Style:</label>
+            <select id="dotStyle">
+                <option value="dot1">Dot Style 1</option>
+                <option value="dot2">Dot Style 2</option>
+            </select>
 
-    <label for="styling-options">Styling Options:</label>
-    <input type="checkbox" id="round-corners" name="styling-options" value="round-corners">
-    <label for="round-corners">Round Corners</label>
-    <input type="checkbox" id="add-border" name="styling-options" value="add-border">
-    <label for="add-border">Add Border</label>
+            <label for="cornerStyle">Corner Style:</label>
+            <select id="cornerStyle">
+                <option value="corner1">Corner Style 1</option>
+                <option value="corner2">Corner Style 2</option>
+            </select>
 
-    <button type="submit">Generate QR Code</button>
-</form>
+            <label for="errorCorrection">Error Correction Level:</label>
+            <select id="errorCorrection">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="quartile">Quartile</option>
+                <option value="high">High</option>
+            </select>
 
-<script src="qr-purpose.js"></script>
+            <label for="mainColor">Main Color:</label>
+            <input type="color" id="mainColor" value="#000000">
+
+            <label for="gradientColor">Gradient Color:</label>
+            <input type="color" id="gradientColor" value="#FFFFFF">
+
+            <label for="qrLogo">Upload QR Logo:</label>
+            <input type="file" id="qrLogo">
+
+            <label for="logoSize">Logo Size:</label>
+            <input type="range" id="logoSize" min="0" max="100" value="50">
+
+            <div id="colourSwatches"></div>
+            <div id="logoPreview"></div>
+
+            <button type="submit">Generate QR Code</button>
+        </form>
+
+        <section id="qrDisplay">
+            <div id="qrCanvas"></div>
+        </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-styling/1.4.0/qrcode.styling.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+    <script src="qr-purpose.js"></script>
+</body>
+</html>
