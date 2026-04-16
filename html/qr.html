@@ -1,91 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>QR Code Generator with Purpose</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="../css/qr.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
 </head>
 <body>
-  <main class="container"> <!-- Flexbox container -->
-
-    <!-- Settings Section -->
-    <form id="qrForm" class="settings">
-      <h1>QR Code Generator</h1>
-
-      <label for="qrType">QR Code Type:</label>
-      <select id="qrType">
-        <option value="url">URL</option>
-        <option value="text">Text</option>
-        <option value="email">Email</option>
-        <option value="phone">Phone</option>
-        <option value="sms">SMS</option>
-        <option value="wifi">Wi-Fi</option>
-        <option value="vcard">vCard</option>
-      </select>
-
-      <div id="inputFields">
-        <div id="urlField" class="purpose-field">
-          <label for="urlInput">URL:</label>
-          <input type="text" id="urlInput" />
-        </div>
-        <div id="textField" class="purpose-field">
-          <label for="textInput">Text:</label>
-          <input type="text" id="textInput" />
-        </div>
-        <div id="emailField" class="purpose-field">
-          <label for="emailInput">Email:</label>
-          <input type="email" id="emailInput" />
-        </div>
-        <div id="phoneField" class="purpose-field">
-          <label for="phoneInput">Phone Number:</label>
-          <input type="tel" id="phoneInput" />
-        </div>
-        <div id="smsField" class="purpose-field">
-          <label for="smsInput">SMS Number:</label>
-          <input type="tel" id="smsInput" />
-        </div>
-        <div id="wifiField" class="purpose-field">
-          <label for="ssidInput">SSID:</label>
-          <input type="text" id="ssidInput" />
-          <label for="wifiPasswordInput">Password:</label>
-          <input type="text" id="wifiPasswordInput" />
-          <label for="encryption">Encryption:</label>
-          <select id="encryption">
-            <option value="WPA">WPA/WPA2</option>
-            <option value="WEP">WEP</option>
-            <option value="nopass">None</option>
-          </select>
-        </div>
-        <div id="vcardField" class="purpose-field">
-          <label for="nameInput">Name:</label>
-          <input type="text" id="nameInput" />
-          <label for="emailVcardInput">Email:</label>
-          <input type="email" id="emailVcardInput" />
-          <label for="phoneVcardInput">Phone:</label>
-          <input type="tel" id="phoneVcardInput" />
-          <label for="orgInput">Organisation:</label>
-          <input type="text" id="orgInput" />
-        </div>
-      </div>
-
-      <button type="button" onclick="generateQR()">Generate QR Code</button>
+    <h1>QR Code Generator</h1>
+    <form id="qrForm">
+        <!-- Other form fields go here -->
+        <button type="submit">Generate QR Code</button>
     </form>
-
-    <!-- QR Display Section -->
-    <div class="qr-display">
-      <canvas id="qrCanvas"></canvas>
-      <div id="logoPreview"></div>
-      <div id="colourSwatches"></div>
-    </div>
-
-  </main>
-
-  <!-- Scripts -->
-  <script src="../js/qrious.min.js"></script>
-  <script src="../js/qr-generator.js"></script>
-  <script src="../js/qr-purpose.js"></script>
-  <script src="../js/qr-styling.js"></script>
-  <script src="../js/qr-with-colours.js"></script>
+    <script>
+        function generateQR() {
+            // Function to generate the QR code goes here
+        }
+    </script>
 </body>
 </html>
