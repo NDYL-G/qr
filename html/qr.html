@@ -1,20 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Code Generator</title>
-</head>
-<body>
-    <h1>QR Code Generator</h1>
-    <form id="qrForm">
-        <!-- Other form fields go here -->
-        <button type="submit">Generate QR Code</button>
-    </form>
-    <script>
-        function generateQR() {
-            // Function to generate the QR code goes here
-        }
-    </script>
-</body>
-</html>
+<form id="qr-form">
+    <label for="qr-type">QR Type:</label>
+    <select id="qr-type" name="qr-type">
+        <option value="simple">Simple</option>
+        <option value="vcard">VCard</option>
+        <option value="url">URL</option>
+        <option value="email">Email</option>
+        <option value="sms">SMS</option>
+    </select>
+
+    <label for="qr-color">Color:</label>
+    <input type="color" id="qr-color" name="qr-color" value="#000000">
+
+    <label for="logo-upload">Upload Logo:</label>
+    <input type="file" id="logo-upload" name="logo-upload" accept="image/*">
+
+    <label for="styling-options">Styling Options:</label>
+    <input type="checkbox" id="round-corners" name="styling-options" value="round-corners">
+    <label for="round-corners">Round Corners</label>
+    <input type="checkbox" id="add-border" name="styling-options" value="add-border">
+    <label for="add-border">Add Border</label>
+
+    <button type="submit">Generate QR Code</button>
+</form>
+
+<script src="qr-purpose.js"></script>
